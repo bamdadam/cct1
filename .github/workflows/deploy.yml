@@ -26,6 +26,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: deploy
           key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           source: "app"
           target: "/home/deploy"
 
@@ -34,7 +35,8 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: deploy
-          password: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             sudo cp /home/deploy/app /opt/app/bin/
             sudo chown appUser:appUser /opt/app/bin/app
