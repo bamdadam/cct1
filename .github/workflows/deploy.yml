@@ -20,6 +20,18 @@ jobs:
       - name: Build
         run: go build -v -o app
 
+      - name: Test SSH Connection
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: deploy
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          script: |
+            echo "SSH connection successful"
+            pwd
+            ls -la
+
       - name: SCP
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -29,6 +41,7 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           source: "app"
           target: "/home/deploy"
+          debug: true
 
       - name: Deploy App
         uses: appleboy/ssh-action@v1.2.2
