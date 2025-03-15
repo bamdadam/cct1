@@ -23,18 +23,18 @@ jobs:
       - name: SCP
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.VPSHOST }}
+          host: ${{ secrets.HOST }}
           username: deploy
-          key: ${{ secrets.SSHKEY }}
+          key: ${{ secrets.SSH_KEY }}
           source: "app"
           target: "/home/deploy"
 
       - name: Deploy App
         uses: appleboy/ssh-action@v1.2.2
         with:
-          host: ${{ secrets.VPSHOST }}
+          host: ${{ secrets.HOST }}
           username: deploy
-          password: ${{ secrets.SSHKEY }}
+          password: ${{ secrets.SSH_KEY }}
           script: |
             sudo cp /home/deploy/app /opt/app/bin/
             sudo chown appUser:appUser /opt/app/bin/app
