@@ -24,7 +24,7 @@ jobs:
         with:
           host: ${{ secrets.VPSHOST }}
           username: deploy
-          password: ${{ secrets.SSHKEY }}
+          key: ${{ secrets.SSHKEY }}
           source: "app"
           target: "/home/deploy"
 
