@@ -1,0 +1,42 @@
+name: Deploy Go App
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+
+      - name: Build
+        run: go build -v -o app
+
+      - name: SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPSHOST }}
+          username: deploy
+          password: ${{ secrets.SSHKEY }}
+          source: "app"
+          target: "/home/deploy"
+
+      - name: Deploy App
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.VPSHOST }}
+          username: deploy
+          password: ${{ secrets.SSHKEY }}
+          script: |
+            sudo cp /home/deploy/app /opt/app/bin/
+            sudo chown appUser:appUser /opt/app/bin/app
+            sudo chmod 750 /opt/app/bin/app
+            
+            sudo systemctl restart app.service
