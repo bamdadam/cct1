@@ -41,7 +41,7 @@ jobs:
           script: |
             sudo mkdir -p /opt/app/bin/
             sudo cp /home/deploy/app /opt/app/bin/
-            sudo chown appUser:appUser /opt/app/bin/app
+            sudo chown appuser:appuser /opt/app/bin/app
             sudo chmod 750 /opt/app/bin/app
             
             sudo systemctl restart app.service
