@@ -44,4 +44,4 @@ jobs:
             sudo chown appuser:appuser /opt/app/bin/app
             sudo chmod 750 /opt/app/bin/app
             
-            sudo systemctl restart app.service
+            sudo systemctl restart cct1.service
