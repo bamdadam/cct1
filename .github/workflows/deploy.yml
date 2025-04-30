@@ -39,9 +39,11 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
+            set -euo pipefail
+            sudo systemctl stop cct1.service
             sudo mkdir -p /opt/app/bin/
             sudo cp /home/deploy/app /opt/app/bin/
             sudo chown appuser:appuser /opt/app/bin/app
             sudo chmod 750 /opt/app/bin/app
             
-            sudo systemctl restart cct1.service
+            sudo systemctl start cct1.service
