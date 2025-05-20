@@ -1,12 +1,14 @@
-name: Deploy Go App
+name: Deploy-Systemd
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "systemd" ]
 
 jobs:
 
   build-and-deploy:
+
+
     runs-on: ubuntu-latest
     environment: prod
     steps:
@@ -40,10 +42,10 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             set -euo pipefail
-            sudo systemctl stop cct1.service
+            sudo systemctl stop cct1-systemd.service
             sudo mkdir -p /opt/app/bin/
             sudo cp /home/deploy/app /opt/app/bin/
             sudo chown appuser:appuser /opt/app/bin/app
             sudo chmod 750 /opt/app/bin/app
             
-            sudo systemctl start cct1.service
+            sudo systemctl start cct1-systemd.service
