@@ -1,0 +1,29 @@
+# Go-related
+*.log
+*.tmp
+*.out
+*.exe
+*.test
+*.swp
+*.prof
+vendor/
+bin/
+
+# Git
+.git
+.gitignore
+
+# CI/CD
+.github/
+Dockerfile
+docker-compose.yml
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+*.pem
+*.key
+*.crt
